@@ -1,5 +1,11 @@
 <h2>game template rendered</h2>
 
+<div class='btn-group game-menu'>
+  <button class='btn'>Restart Game</button>
+</div>
+
+{{game-board/stats model=game}}
+
 <div class='col-md-12 card-container'>
 {{#each model.cards as |card|}}
   {{game-board/card card=card}}
