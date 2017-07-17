@@ -1,2 +1,7 @@
 <h2>game template rendered</h2>
+
+{{#each model.cards as |card|}}
+  {{game-board/card card=card}}
+{{/each}}
+
 {{outlet}}
