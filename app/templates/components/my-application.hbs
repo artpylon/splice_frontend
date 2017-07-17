@@ -22,7 +22,11 @@
 </nav>
 
 <h1>Welcome to Splice!</h1>
-<h3>Please sign in to start a new game</h3>
+{{#if isAuthenticated}}
+  {{#link-to 'game'}}Play a game{{/link-to}}
+{{else}}
+  <h3>Please sign in to start a new game</h3>
+{{/if}}
 
 {{#each flashMessages.queue as |flash|}}
   {{flash-message flash=flash}}
