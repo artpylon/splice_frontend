@@ -2,8 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model () {
-    const games = this.get('store').findAll('game');
-    const cards = this.get('store').findAll('card');
-    return {games: games, cards: cards}
+    return Ember.RSVP.hash({
+      games: this.store.findAll('game'),
+      cards: this.store.findAll('card')
+    });
   },
 });
