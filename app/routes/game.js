@@ -9,6 +9,10 @@ export default Ember.Route.extend({
   },
   actions: {
     validSet () {
+    },
+    createGame (game) {
+      let gameRecord = this.get('store').createRecord('game', game);
+      gameRecord.save();
     }
   }
 });
