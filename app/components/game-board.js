@@ -14,6 +14,51 @@ export default Ember.Component.extend({
   gameArray: Ember.computed('this.deck', function () {
       return this.get('deck').slice(0, 15)
   }),
+  selectedArray: [],
+  validate: Ember.computed('this.selectedArray', function () {
+      const shapes = this.get('selectedArray').toArray().map(function(a) {return a.shape;});
+      const colors = this.get('selectedArray').toArray().map(function(a) {return a.color;});
+      const numbers = this.get('selectedArray').toArray().map(function(a) {return a.numbers;});
+      const shadings = this.get('selectedArray').toArray().map(function(a) {return a.shading;});
+      const solution = []
+      if (this.get('selectedArray').length === 3) {
+        solution.push(true)
+      } else solution.push(false)
+      if (shapes.every( (val, i, arr) => val == arr[0]) ||
+        shapes.every( (val, i, arr) => val !== arr[0])) {
+        solution.push(true)
+
+      } else solution.push(false)
+
+      if (colors.every( (val, i, arr) => val == arr[0]) ||
+        colors.every( (val, i, arr) => val !== arr[0])) {
+        solution.push(true)
+
+      } else solution.push(false)
+
+      if (numbers.every( (val, i, arr) => val == arr[0]) ||
+        numbers.every( (val, i, arr) => val !== arr[0])) {
+        solution.push(true)
+
+      } else solution.push(false)
+
+      if (shadings.every( (val, i, arr) => val == arr[0]) ||
+        shadings.every( (val, i, arr) => val !== arr[0])) {
+        solution.push(true)
+
+      } else solution.push(false)
+
+      if (solution) {
+        return true
+      } else return false
+  }),
+  actions: {
+    toggleCardSelected (card) {
+      if (this.get('selectedArray').length < 3) {
+        this.get('selectedArray').push(card);
+      } else return;
+    },
+  },
   // removeGameArray: Ember.computed('this.deck', function () {
   //     return this.get('deck').removeObjects(0, 15)
   // }),
