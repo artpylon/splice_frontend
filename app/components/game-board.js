@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   gameArray: Ember.computed('this.deck', function () {
       return this.get('deck').slice(0, 15)
   }),
-  removeGameArray: Ember.computed('this.deck', function () {
-      return this.get('deck').removeObjects(0, 15)
-  }),
+  // removeGameArray: Ember.computed('this.deck', function () {
+  //     return this.get('deck').removeObjects(0, 15)
+  // }),
 });
