@@ -55,7 +55,9 @@ export default Ember.Component.extend({
   actions: {
     toggleCardSelected (card) {
       if (this.get('selectedArray').length < 3) {
-        this.get('selectedArray').push(card);
+        this.get('selectedArray').push(card)
+      } else if (this.get('validate') === true) {
+        return this.sendAction('validSet');
       } else return;
     },
   },
