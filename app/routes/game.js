@@ -7,4 +7,8 @@ export default Ember.Route.extend({
       cards: this.store.findAll('card')
     });
   },
+  actions: {
+    validSet () {
+    }
+  }
 });
