@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNameBindings: ['toggleBoardDisplay'],
+  toggleBoardDisplay: true,
+  newGame: {
+    sets_found: 0,
+    over: false
+  },
   deck: Ember.computed('model.cards.[]', function () {
     let array = this.get('model.cards.[]').toArray()
       for (var i = array.length - 1; i > 0; i--) {
@@ -59,6 +65,13 @@ export default Ember.Component.extend({
       } else if (this.get('validate') === true) {
         return this.sendAction('validSet');
       } else return;
+    },
+    createGame () {
+      $('.card-container').toggle();
+      // let game = this.get('newGame');
+      let game = {sets_found: 0, over: false}
+      this.sendAction('createGame', game)
+      $('.play-game').toggle();
     },
   },
   // removeGameArray: Ember.computed('this.deck', function () {
