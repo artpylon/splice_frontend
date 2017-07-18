@@ -58,6 +58,7 @@ export default Ember.Component.extend({
         return true
       } else return false
   }),
+
   actions: {
     toggleCardSelected (card) {
       if (this.get('selectedArray').length < 3) {
@@ -69,9 +70,16 @@ export default Ember.Component.extend({
     createGame () {
       $('.card-container').toggle();
       // let game = this.get('newGame');
-      let game = {sets_found: 0, over: false}
-      this.sendAction('createGame', game)
+      // let game = {sets_found: 0, over: false}
+      // let gameRecord = this.get('store').createRecord('game', this.get('currentGame'));
+      // gameRecord.save()
+      // // this.get('currentGame').set('id', )
+      // debugger
+      this.sendAction('createGame')
       $('.play-game').toggle();
+    },
+    deleteGame () {
+      this.sendAction('deleteGame');
     },
   },
   // removeGameArray: Ember.computed('this.deck', function () {
