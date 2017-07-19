@@ -5,8 +5,8 @@ export default Ember.Component.extend({
   // highlight: false,
   actions: {
     toggleSelect () {
-        // this.toggleProperty('highlight')
-        return this.sendAction('toggleSelect', this.get('card'), this);
+
+      return this.sendAction('toggleSelect', this.get('card'))
       },
 
   },
