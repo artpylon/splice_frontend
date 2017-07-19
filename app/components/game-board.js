@@ -1,8 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNameBindings: ['toggleBoardDisplay'],
-  toggleBoardDisplay: true,
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
       for (var i = array.length - 1; i > 0; i--) {
@@ -20,8 +18,16 @@ export default Ember.Component.extend({
       return array
   }),
   selectedArray: [],
+  // removeHighlight: function () {
+  //   $('.card-container').children('div').removeClass('highlight')
+  //   $('.card-container').children('div').removeClass('highlight')
+  //   $('.card-container').children('div').removeClass('highlight')
+  //   // this.get('cards').forEach(function (card) {
+  //   //   debugger
+  //   //   card.toggleProperty('highlight')
+  //   // })
+  // },
 
-  // validate: Ember.computed('this.selectedArray', function () {
   validate: function () {
 
       const shapes = this.get('selectedArray').map(function(card) {return card.get('shape');});
@@ -66,12 +72,12 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    toggleSelect (card) {
+    toggleSelect (card, comp) {
       let sets = 0
       let self = this
       if (this.get('selectedArray').length < 3) {
         this.get('selectedArray').push(card)
-        debugger
+
         if (this.get('selectedArray').length === 3 &&
           this.validate() === true) {
 
@@ -91,8 +97,12 @@ export default Ember.Component.extend({
 
         } else if (this.get('selectedArray').length === 3 &&
           this.validate() === false) {
+
             this.get('selectedArray').removeAt(0, 3)
             this.get('flashMessages').danger('Invalid set! Keep looking!')
+            // this.removeHighlight()
+            // $('.card-container').removeClass('highlight')
+
           } else return
         // display error message
       } else return
@@ -106,7 +116,5 @@ export default Ember.Component.extend({
       return this.sendAction('updateGame', this.get('game'))
     },
   },
-  // removeGameArray: Ember.computed('this.deck', function () {
-  //     return this.get('deck').removeObjects(0, 15)
-  // }),
+
 });

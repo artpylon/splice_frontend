@@ -1,15 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNameBindings: ['toggleCardHighlighted'],
-  toggleCardHighlighted: false,
+  // classNameBindings: ['highlight'],
+  // highlight: false,
   actions: {
     toggleSelect () {
-        this.toggleProperty('toggleCardHighlighted');
-        return this.sendAction('toggleSelect', this.get('card'));
+        // this.toggleProperty('highlight')
+        return this.sendAction('toggleSelect', this.get('card'), this);
       },
-    // toggleHighlight () {
-    //     this.toggleProperty('toggleCardHighlighted');
-    //   },
+
   },
 });
