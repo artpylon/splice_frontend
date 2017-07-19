@@ -14,11 +14,13 @@ export default Ember.Component.extend({
       return array;
   }),
   gameArray: Ember.computed('this.deck', function () {
-      let array = this.get('deck').slice(0, 15)
-      this.get('deck').removeAt(0, 15)
+      // let array = this.get('deck').slice(0, 15)
+      let array = this.get('deck')
+      // this.get('deck').removeAt(0, 15)
       return array
   }),
   selectedArray: [],
+
   validate: Ember.computed('this.selectedArray', function () {
 
       const shapes = this.get('selectedArray').map(function(card) {return card.get('shape');});
@@ -26,30 +28,33 @@ export default Ember.Component.extend({
       const numbers = this.get('selectedArray').map(function(card) {return card.get('number');});
       const shadings = this.get('selectedArray').map(function(card) {return card.get('shading');});
 
-      if (shapes.every( (val, i, arr) => val == arr[0]) ||
-        shapes.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+      if (this.get('selectedArray').length < 3) {
+        return false
+      }
+
+      if (shapes.every( (val, i, arr) => val == arr[0]) === true ||
+        shapes.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
 
       } else {
         return false
       }
 
-      if (colors.every( (val, i, arr) => val == arr[0]) ||
-        colors.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+      if (colors.every( (val, i, arr) => val == arr[0]) === true ||
+        colors.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
 
       } else {
         return false
       }
 
-      if (numbers.every( (val, i, arr) => val == arr[0]) ||
-        numbers.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+      if (numbers.every( (val, i, arr) => val == arr[0]) === true ||
+        numbers.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
 
       } else {
         return false
       }
 
-      if (shadings.every( (val, i, arr) => val == arr[0]) ||
-        shadings.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
-        solution.push(true)
+      if (shadings.every( (val, i, arr) => val == arr[0]) === true ||
+        shadings.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
 
       } else {
         return false
@@ -65,9 +70,10 @@ export default Ember.Component.extend({
       let self = this
       if (this.get('selectedArray').length < 3) {
         this.get('selectedArray').push(card)
-
+        debugger
         if (this.get('selectedArray').length === 3 &&
           this.get('validate') === true) {
+
             // record that a set was found on this game
             sets++
             self.get('game').set('sets_found', sets)
@@ -81,7 +87,10 @@ export default Ember.Component.extend({
             // clear the selected array
             this.get('selectedArray').removeAt(0, 3)
 
-        } else return
+        } else if (this.get('selectedArray').length === 3 &&
+          this.get('validate') === false) {
+            this.get('selectedArray').removeAt(0, 3)
+          } else return
         // display error message
       } else return
         // display error message
