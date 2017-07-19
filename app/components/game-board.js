@@ -21,7 +21,8 @@ export default Ember.Component.extend({
   }),
   selectedArray: [],
 
-  validate: Ember.computed('this.selectedArray', function () {
+  // validate: Ember.computed('this.selectedArray', function () {
+  validate: function () {
 
       const shapes = this.get('selectedArray').map(function(card) {return card.get('shape');});
       const colors = this.get('selectedArray').map(function(card) {return card.get('color');});
@@ -62,7 +63,7 @@ export default Ember.Component.extend({
 
 
       return true
-  }),
+  },
 
   actions: {
     toggleSelect (card) {
@@ -72,7 +73,7 @@ export default Ember.Component.extend({
         this.get('selectedArray').push(card)
         debugger
         if (this.get('selectedArray').length === 3 &&
-          this.get('validate') === true) {
+          this.validate() === true) {
 
             // record that a set was found on this game
             sets++
@@ -86,10 +87,12 @@ export default Ember.Component.extend({
             this.get('gameArray').addObject(this.get('deck').shiftObject())
             // clear the selected array
             this.get('selectedArray').removeAt(0, 3)
+            this.get('flashMessages').success('Set found! Good work!')
 
         } else if (this.get('selectedArray').length === 3 &&
-          this.get('validate') === false) {
+          this.validate() === false) {
             this.get('selectedArray').removeAt(0, 3)
+            this.get('flashMessages').danger('Invalid set! Keep looking!')
           } else return
         // display error message
       } else return
