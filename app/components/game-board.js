@@ -20,42 +20,43 @@ export default Ember.Component.extend({
   }),
   selectedArray: [],
   validate: Ember.computed('this.selectedArray', function () {
-      return  true
-      // const shapes = this.get('selectedArray').toArray().map(function(a) {return a.shape;});
-      // const colors = this.get('selectedArray').toArray().map(function(a) {return a.color;});
-      // const numbers = this.get('selectedArray').toArray().map(function(a) {return a.numbers;});
-      // const shadings = this.get('selectedArray').toArray().map(function(a) {return a.shading;});
-      // const solution = []
-      // if (this.get('selectedArray').length === 3) {
-      //   solution.push(true)
-      // } else solution.push(false)
-      // if (shapes.every( (val, i, arr) => val == arr[0]) ||
-      //   shapes.every( (val, i, arr) => val !== arr[0])) {
-      //   solution.push(true)
-      //
-      // } else solution.push(false)
-      //
-      // if (colors.every( (val, i, arr) => val == arr[0]) ||
-      //   colors.every( (val, i, arr) => val !== arr[0])) {
-      //   solution.push(true)
-      //
-      // } else solution.push(false)
-      //
-      // if (numbers.every( (val, i, arr) => val == arr[0]) ||
-      //   numbers.every( (val, i, arr) => val !== arr[0])) {
-      //   solution.push(true)
-      //
-      // } else solution.push(false)
-      //
-      // if (shadings.every( (val, i, arr) => val == arr[0]) ||
-      //   shadings.every( (val, i, arr) => val !== arr[0])) {
-      //   solution.push(true)
-      //
-      // } else solution.push(false)
-      //
-      // if (solution) {
-      //   return true
-      // } else return false
+
+      const shapes = this.get('selectedArray').map(function(card) {return card.get('shape');});
+      const colors = this.get('selectedArray').map(function(card) {return card.get('color');});
+      const numbers = this.get('selectedArray').map(function(card) {return card.get('number');});
+      const shadings = this.get('selectedArray').map(function(card) {return card.get('shading');});
+
+      if (shapes.every( (val, i, arr) => val == arr[0]) ||
+        shapes.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+
+      } else {
+        return false
+      }
+
+      if (colors.every( (val, i, arr) => val == arr[0]) ||
+        colors.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+
+      } else {
+        return false
+      }
+
+      if (numbers.every( (val, i, arr) => val == arr[0]) ||
+        numbers.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+
+      } else {
+        return false
+      }
+
+      if (shadings.every( (val, i, arr) => val == arr[0]) ||
+        shadings.every( (val, i, arr) => i === 0 || val !== arr[i - 1])) {
+        solution.push(true)
+
+      } else {
+        return false
+      }
+
+
+      return true
   }),
 
   actions: {
