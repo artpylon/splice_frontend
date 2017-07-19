@@ -1,9 +1,8 @@
-{{!-- <div class='btn-group game-menu'>
-  <button class='btn play-game' {{action 'createGame'}}>Play Game</button>
-  <button class='btn' {{action 'deleteGame'}}>Restart Game</button>
-</div> --}}
 
-{{game-board/stats model=game}}
+<button class='btn' {{action 'deleteGame'}}>Restart Game</button>
+
+
+{{!-- {{game-board/stats model=game}} --}}
 
 <div class='col-md-12 card-container'>
 {{#each gameArray as |card|}}
