@@ -12,10 +12,9 @@ export default Ember.Route.extend({
   actions: {
     validSet () {
     },
-    deleteGame () {
-      this.get('store').findRecord('game', this.get('currentGame').id).then(function(game) {
-        game.destroyRecord()
-      });
+    deleteGame (game) {
+      game.destroyRecord()
+        .then(this.transitionTo('games'))
     },
     updateGame () {
     },

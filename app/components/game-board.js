@@ -7,8 +7,8 @@ export default Ember.Component.extend({
     sets_found: 0,
     over: false
   },
-  deck: Ember.computed('model.cards.[]', function () {
-    let array = this.get('model.cards.[]').toArray()
+  deck: Ember.computed('cards.[]', function () {
+    let array = this.get('cards.[]').toArray()
       for (var i = array.length - 1; i > 0; i--) {
           var j = Math.floor(Math.random() * (i + 1));
           var temp = array[i];
@@ -79,7 +79,7 @@ export default Ember.Component.extend({
       $('.play-game').toggle();
     },
     deleteGame () {
-      this.sendAction('deleteGame');
+      return this.sendAction('deleteGame', this.get('game'));
     },
   },
   // removeGameArray: Ember.computed('this.deck', function () {
