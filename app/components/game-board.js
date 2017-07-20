@@ -19,15 +19,9 @@ export default Ember.Component.extend({
       return array
   }),
   selectedArray: [],
-  // removeHighlight: function () {
-  //   $('.card-container').children('div').removeClass('highlight')
-  //   $('.card-container').children('div').removeClass('highlight')
-  //   $('.card-container').children('div').removeClass('highlight')
-  //   // this.get('cards').forEach(function (card) {
-  //   //   debugger
-  //   //   card.toggleProperty('highlight')
-  //   // })
-  // },
+  selectedCards: Ember.computed('selectedArray', function () {
+    return this.get('selectedArray')
+  }),
 
   validate: function () {
 
@@ -74,11 +68,11 @@ export default Ember.Component.extend({
 
   actions: {
     toggleSelect (card) {
+
       let sets = 0
       let self = this
       if (this.get('selectedArray').length < 3) {
-        this.get('selectedArray').push(card)
-
+        this.get('selectedArray').pushObject(card)
         if (this.get('selectedArray').length === 3 &&
           this.validate() === true) {
 
@@ -101,20 +95,19 @@ export default Ember.Component.extend({
               this.get('selectedArray').removeAt(0, 3)
               this.get('flashMessages').success('Set found! Good work!')
             }
-
+        // if set is invalid...
         } else if (this.get('selectedArray').length === 3 &&
           this.validate() === false) {
 
             this.get('selectedArray').removeAt(0, 3)
             this.get('flashMessages').danger('Invalid set! Keep looking!')
-            // this.removeHighlight()
-            // $('.card-container').removeClass('highlight')
+
 
           } else return
         // display error message
       } else return
         // display error message
-      // return this.sendAction('updateGame', self.get('game'));
+
     },
     deleteGame () {
       return this.sendAction('deleteGame', this.get('game'));
