@@ -13,9 +13,11 @@ export default Ember.Component.extend({
       return array;
   }),
   gameArray: Ember.computed('this.deck', function () {
-      // let array = this.get('deck').slice(0, 15)
-      let array = this.get('deck')
-      // this.get('deck').removeAt(0, 15)
+      let array = this.get('deck').slice(0, 15)
+      this.get('deck').removeAt(0, 15)
+
+      // for testing, render the whole deck on gameboard:
+      // let array = this.get('deck')
       return array
   }),
   selectedArray: [],
@@ -71,8 +73,20 @@ export default Ember.Component.extend({
 
       let sets = 0
       let self = this
+      // check if this card has already been selected.
+      if (card === this.get('selectedArray')[0] || card === this.get('selectedArray')[1]) {
+        this.get('flashMessages').danger('Already selected!')
+        return
+      }
+
+      // if less than 3 cards selected, push this card to selected array.
       if (this.get('selectedArray').length < 3) {
         this.get('selectedArray').pushObject(card)
+        debugger
+
+        // if this card makes 3 selected, validate that set
+
+        // if valid:
         if (this.get('selectedArray').length === 3 &&
           this.validate() === true) {
 
@@ -80,22 +94,27 @@ export default Ember.Component.extend({
             sets++
             self.get('game').set('sets_found', sets)
             this.send('updateGame')
+
             // remove valid set from game array
             this.get('gameArray').removeObjects(this.get('selectedArray'))
+
             // check if the game is over
             if (this.get('deck').length === 0) {
-              this.over = true
+              this.get('selectedArray').removeAt(0, 3)
               this.get('flashMessages').success('You WON!')
+
             } else {
             // add 3 new cards to the game away from the deck
               this.get('gameArray').addObject(this.get('deck').shiftObject())
               this.get('gameArray').addObject(this.get('deck').shiftObject())
               this.get('gameArray').addObject(this.get('deck').shiftObject())
+
             // clear the selected array
               this.get('selectedArray').removeAt(0, 3)
               this.get('flashMessages').success('Set found! Good work!')
             }
-        // if set is invalid...
+
+        // if set is invalid:
         } else if (this.get('selectedArray').length === 3 &&
           this.validate() === false) {
 
@@ -103,12 +122,12 @@ export default Ember.Component.extend({
             this.get('flashMessages').danger('Invalid set! Keep looking!')
 
 
-          } else return
+          }
         // display error message
-      } else return
+      }
         // display error message
-
     },
+
     deleteGame () {
       return this.sendAction('deleteGame', this.get('game'));
     },
