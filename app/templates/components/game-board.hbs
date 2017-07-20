@@ -1,15 +1,23 @@
 
-<button class='btn reset-game' {{action 'deleteGame'}}>Restart Game</button>
+<div>
+  <button class='btn reset-game' {{action 'deleteGame'}}>Restart Game</button>
+</div>
 
-<div class='selected-box'>
+{{!-- <h4>Selected Cards:</h4> --}}
+<div class='selected-box col-md-6'>
+<h4>Selected Cards:</h4>
   {{game-board/selected-box selectedCards=selectedCards}}
 </div>
 
-<div class='col-md-12 card-container'>
-{{#each gameArray as |card|}}
-  {{game-board/card card=card
-    toggleSelect='toggleSelect'}}
-{{/each}}
+<div class='clearfix'></div>
+
+<div class='card-container row'>
+  {{#each gameArray as |card|}}
+
+    {{game-board/card card=card
+      toggleSelect='toggleSelect'}}
+
+  {{/each}}
 </div>
 
 
