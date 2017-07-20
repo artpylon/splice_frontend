@@ -21,12 +21,6 @@
   </div>
 </nav>
 
-<h1>Welcome to Splice!</h1>
-{{#if isAuthenticated}}
-  {{#link-to "games"}}Play a Game{{/link-to}}
-{{else}}
-  <h3>Please sign in to start a new game</h3>
-{{/if}}
 
 {{#each flashMessages.queue as |flash|}}
   {{flash-message flash=flash}}
