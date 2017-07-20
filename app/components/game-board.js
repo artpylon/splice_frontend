@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   auth: Ember.inject.service(),
-
   user: Ember.computed.alias('auth.credentials.email'),
   isAuthenticated: Ember.computed.alias('auth.isAuthenticated'),
   over: false,
@@ -17,11 +16,11 @@ export default Ember.Component.extend({
       return array;
   }),
   gameArray: Ember.computed('this.deck', function () {
-      let array = this.get('deck').slice(0, 15)
-      this.get('deck').removeAt(0, 15)
+      // let array = this.get('deck').slice(0, 15)
+      // this.get('deck').removeAt(0, 15)
 
       // for testing, render the whole deck on gameboard:
-      // let array = this.get('deck')
+      let array = this.get('deck')
       return array
   }),
   selectedArray: [],
@@ -106,6 +105,8 @@ export default Ember.Component.extend({
             if (this.get('deck').length === 0) {
               this.get('selectedArray').removeAt(0, 3)
               this.get('flashMessages').success('You WON!')
+              $('.play-again').toggle()
+              $('.reset-game').toggle()
 
             } else {
             // add 3 new cards to the game away from the deck
