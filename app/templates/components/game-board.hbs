@@ -1,6 +1,7 @@
 
-<div>
-  <button class='btn reset-game' {{action 'deleteGame'}}>Restart Game</button>
+<div class='game-menu'>
+  <button type='button' class='btn reset-game' {{action 'deleteGame'}}>Restart Game</button>
+  {{#link-to 'games' type='button' tagName='button' class='btn play-again'}}Play Again{{/link-to}}
 </div>
 
 {{!-- <h4>Selected Cards:</h4> --}}
