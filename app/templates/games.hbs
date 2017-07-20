@@ -1,3 +1,7 @@
+{{#unless isAuthenticated}}
+<p>(Must be signed in to start a new game)</p>
+{{/unless}}
+
 <div class='btn-group game-menu'>
 
     <button class='btn play-game' {{action 'createGame'}}>Play Game</button>

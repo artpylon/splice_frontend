@@ -16,11 +16,11 @@ export default Ember.Component.extend({
       return array;
   }),
   gameArray: Ember.computed('this.deck', function () {
-      // let array = this.get('deck').slice(0, 15)
-      // this.get('deck').removeAt(0, 15)
+      let array = this.get('deck').slice(0, 15)
+      this.get('deck').removeAt(0, 15)
 
       // for testing, render the whole deck on gameboard:
-      let array = this.get('deck')
+      // let array = this.get('deck')
       return array
   }),
   selectedArray: [],
