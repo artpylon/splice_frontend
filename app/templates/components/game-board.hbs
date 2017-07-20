@@ -1,16 +1,11 @@
-{{!-- {{#if deck}}
+
 <button class='btn reset-game' {{action 'deleteGame'}}>Restart Game</button>
-{{/if}} --}}
 
-{{!-- {{#if over}} --}}
-  <button class='btn play-again' {{action 'playAgain'}}>Play Again</button>
-{{!-- {{/if}} --}}
-
-{{!-- <div class='selected-card-container'>
-{{#each selectedArray as |card|}}
-  <img class="selected-card" src={{card.img}}>
-{{/each}}
-</div> --}}
+<div class='selected-box'>
+  {{#each selectedCards as |card|}}
+    <img class="selected-card" src={{card.img}}>
+  {{/each}}
+</div>
 
 <div class='col-md-12 card-container'>
 {{#each gameArray as |card|}}
@@ -18,5 +13,6 @@
     toggleSelect='toggleSelect'}}
 {{/each}}
 </div>
+
 
 {{outlet}}
