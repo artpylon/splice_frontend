@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  auth: Ember.inject.service(),
+
+  user: Ember.computed.alias('auth.credentials.email'),
+  isAuthenticated: Ember.computed.alias('auth.isAuthenticated'),
   over: false,
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
@@ -82,7 +86,7 @@ export default Ember.Component.extend({
       // if less than 3 cards selected, push this card to selected array.
       if (this.get('selectedArray').length < 3) {
         this.get('selectedArray').pushObject(card)
-        debugger
+
 
         // if this card makes 3 selected, validate that set
 
