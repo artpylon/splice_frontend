@@ -142,6 +142,11 @@ export default Ember.Component.extend({
     playAgain: function () {
       this.transitionTo('games')
     },
+    addThree: function () {
+      this.get('gameArray').addObject(this.get('deck').shiftObject())
+      this.get('gameArray').addObject(this.get('deck').shiftObject())
+      this.get('gameArray').addObject(this.get('deck').shiftObject())
+    }
   },
 
 });
