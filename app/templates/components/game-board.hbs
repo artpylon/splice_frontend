@@ -1,8 +1,9 @@
-
-<div class='game-menu'>
-  <button type='button' class='btn reset-game' {{action 'deleteGame'}}>Restart Game</button>
-  <button type='button' class='btn add-three' {{action 'addThree'}}>Add 3 Cards</button>
-  {{#link-to 'games' type='button' tagName='button' class='btn play-again'}}Play Again{{/link-to}}
+<div class='game-board-container'>
+<div class='game-menu nav-stacked'>
+  <button type='button' class='menu-button reset-game' {{action 'deleteGame'}}>Restart Game</button>
+  <button type='button' class='menu-button add-three' {{action 'addThree'}}>Add 3 Cards</button>
+  {{#link-to 'games' type='button' tagName='button' class='play-again menu-button'}}Play Again{{/link-to}}
+  {{game-board/stats game=game cards=cards cardsRemaining=cardsRemaining}}
 </div>
 
 {{!-- <h4>Selected Cards:</h4> --}}
@@ -11,8 +12,6 @@
   {{game-board/selected-box selectedCards=selectedCards}}
 </div>
 
-{{!-- <div class='clearfix'></div> --}}
-
 <div class='card-container row'>
   {{#each gameArray as |card|}}
 
@@ -20,6 +19,7 @@
       toggleSelect='toggleSelect'}}
 
   {{/each}}
+</div>
 </div>
 
 

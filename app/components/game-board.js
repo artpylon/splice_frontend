@@ -18,6 +18,10 @@ export default Ember.Component.extend({
       return array;
   }),
 
+  cardsRemaining: Ember.computed('game.sets_found', function () {
+    return 66 - (this.get('game').get('sets_found') * 3)
+  }),
+
   // select 15 cards from the deck to start the game
   gameArray: Ember.computed('this.deck', function () {
       let array = this.get('deck').slice(0, 15)

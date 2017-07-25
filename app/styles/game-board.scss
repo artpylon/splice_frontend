@@ -1,33 +1,69 @@
+// cards
+.card-container {
+  float: left;
+  margin: 0 auto 250px;
+  position: relative;
+  width: 660px;
+}
+
 .card {
+  display: inline-block;
   float: left;
   margin-bottom: 18px;
+  position: relative;
 
 }
 
-.reset-game {
+// game menu
+.game-menu {
   float: left;
-
+  margin-bottom: 15px;
+  width: 180px;
 }
 
-.card-container {
-  margin: 0 auto 250px;
-  max-width: 660px;
-  width: auto;
-}
+.menu-button {
+  float: left;
+  margin-left: auto;
+  position: relative;
 
-hr {
-  color: black;
+  display: inline-block;
+  padding: 4px 8px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-top: 10px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #A09F9E;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 .play-again {
   display: none;
-  margin-left: 10px;
 }
 
 .add-three {
-  margin-left: 10px;
+  clear: left;
+  margin-top: 10px;
 }
 
-.game-menu {
-  margin-bottom: 10px;
+.stat {
+  clear: left;
+  float: left;
+  display: inline-block;
+  padding: 4px 8px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-top: 10px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #EA9810;
+  border-radius: 3px;
+  font-size: 14px;
+  position: relative;
+
 }
