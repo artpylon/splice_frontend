@@ -5,6 +5,8 @@ export default Ember.Component.extend({
   user: Ember.computed.alias('auth.credentials.email'),
   isAuthenticated: Ember.computed.alias('auth.isAuthenticated'),
   over: false,
+
+  // full deck of game cards, shuffled
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
       for (var i = array.length - 1; i > 0; i--) {
@@ -15,6 +17,8 @@ export default Ember.Component.extend({
       }
       return array;
   }),
+
+  // select 15 cards from the deck to start the game
   gameArray: Ember.computed('this.deck', function () {
       let array = this.get('deck').slice(0, 15)
       this.get('deck').removeAt(0, 15)
@@ -23,52 +27,55 @@ export default Ember.Component.extend({
       // let array = this.get('deck')
       return array
   }),
+
+  // array to contain cards selected by the user
   selectedArray: [],
+
+  // computed property that watches selectedArray and displays contents to user
   selectedCards: Ember.computed('selectedArray', function () {
     return this.get('selectedArray')
   }),
 
-  validate: function () {
+  // helper function for validate, gets selected card properties
+  propertyExtractor: function (array, property) {
+    return array.map(function(card) {return card.get(property);});
+  },
 
-      const shapes = this.get('selectedArray').map(function(card) {return card.get('shape');});
-      const colors = this.get('selectedArray').map(function(card) {return card.get('color');});
-      const numbers = this.get('selectedArray').map(function(card) {return card.get('number');});
-      const shadings = this.get('selectedArray').map(function(card) {return card.get('shading');});
-
-      if (this.get('selectedArray').length < 3) {
-        return false
-      }
-
-      if (shapes.every( (val, i, arr) => val == arr[0]) === true ||
-        shapes.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
-
-      } else {
-        return false
-      }
-
-      if (colors.every( (val, i, arr) => val == arr[0]) === true ||
-        colors.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
-
-      } else {
-        return false
-      }
-
-      if (numbers.every( (val, i, arr) => val == arr[0]) === true ||
-        numbers.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
-
-      } else {
-        return false
-      }
-
-      if (shadings.every( (val, i, arr) => val == arr[0]) === true ||
-        shadings.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
-
-      } else {
-        return false
-      }
-
-
+// Function to check if each card's property are all the same or all different
+  propertyEvaluator: function (array) {
+    if (array.every( (val, i, arr) => val == arr[0]) === true ||
+      array.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
       return true
+    } else {
+      return false
+    }
+  },
+
+  validate: function () {
+    const shapes = this.propertyExtractor(this.get('selectedArray'), 'shape');
+    const colors = this.propertyExtractor(this.get('selectedArray'), 'color');
+    const numbers = this.propertyExtractor(this.get('selectedArray'), 'number');
+    const shadings = this.propertyExtractor(this.get('selectedArray'), 'shading');
+
+    if (this.propertyEvaluator(shapes) && this.propertyEvaluator(colors)
+      && this.propertyEvaluator(numbers) && this.propertyEvaluator(shadings)) {
+
+    } else {
+      return false
+    }
+
+    return true
+  },
+
+  clearArray: function (array, start, end) {
+    array.removeAt(start, end)
+  },
+
+  gameOver: function () {
+    this.clearArray(this.get('selectedArray'), 0, 3)
+    this.get('flashMessages').success('You WON!')
+    $('.play-again').toggle()
+    $('.reset-game').toggle()
   },
 
   actions: {
@@ -86,7 +93,6 @@ export default Ember.Component.extend({
       if (this.get('selectedArray').length < 3) {
         this.get('selectedArray').pushObject(card)
 
-
         // if this card makes 3 selected, validate that set
 
         // if valid:
@@ -103,19 +109,14 @@ export default Ember.Component.extend({
 
             // check if the game is over
             if (this.get('deck').length === 0) {
-              this.get('selectedArray').removeAt(0, 3)
-              this.get('flashMessages').success('You WON!')
-              $('.play-again').toggle()
-              $('.reset-game').toggle()
+              this.gameOver()
 
             } else {
             // add 3 new cards to the game away from the deck
-              this.get('gameArray').addObject(this.get('deck').shiftObject())
-              this.get('gameArray').addObject(this.get('deck').shiftObject())
-              this.get('gameArray').addObject(this.get('deck').shiftObject())
-
             // clear the selected array
-              this.get('selectedArray').removeAt(0, 3)
+            // notify the user of valid set found
+              this.send('addThree')
+              this.clearArray(this.get('selectedArray'), 0, 3)
               this.get('flashMessages').success('Set found! Good work!')
             }
 
@@ -123,14 +124,10 @@ export default Ember.Component.extend({
         } else if (this.get('selectedArray').length === 3 &&
           this.validate() === false) {
 
-            this.get('selectedArray').removeAt(0, 3)
+            this.clearArray(this.get('selectedArray'), 0, 3)
             this.get('flashMessages').danger('Invalid set! Keep looking!')
-
-
           }
-        // display error message
       }
-        // display error message
     },
 
     deleteGame () {
