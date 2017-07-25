@@ -67,3 +67,62 @@
   position: relative;
 
 }
+
+// media queries
+@media (max-width: 1080px) {
+  .card-container {
+    width: 550px;
+  }
+
+  .card {
+    height: 153px;
+    width: 104px;
+  }
+}
+
+
+@media (max-width: 970px) {
+  .card-container {
+    width: 500px;
+  }
+
+  .card {
+    height: 133px;
+    width: 91px;
+  }
+}
+
+@media (max-width: 500px) {
+  .card-container {
+    width: 325px;
+  }
+
+  .card {
+    height: 95px;
+    width: 65px;
+  }
+  .selected-title {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-container {
+    width: 290px;
+  }
+
+  .card {
+    height: 76px;
+    width: 52px;
+  }
+  .selected-title {
+    font-size: 14px;
+  }
+  .stat {
+    display: none;
+  }
+  .game-menu {
+    width: 120px;
+    margin: auto;
+  }
+}
