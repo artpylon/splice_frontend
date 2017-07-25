@@ -1,10 +1,10 @@
 <div class='game-board-container'>
-<div class='game-menu nav-stacked'>
-  <button type='button' class='menu-button reset-game' {{action 'deleteGame'}}>Restart Game</button>
-  <button type='button' class='menu-button add-three' {{action 'addThree'}}>Add 3 Cards</button>
-  {{#link-to 'games' type='button' tagName='button' class='play-again menu-button'}}Play Again{{/link-to}}
-  {{game-board/stats game=game cards=cards cardsRemaining=cardsRemaining}}
-</div>
+{{game-board/game-menu
+  game=game
+  cards=cards
+  cardsRemaining=cardsRemaining
+  deleteGame='deleteGame'
+  addThree='addThree'}}
 
 {{!-- <h4>Selected Cards:</h4> --}}
 <div class='selected-box col-md-6'>
