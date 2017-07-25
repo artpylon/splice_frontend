@@ -67,6 +67,15 @@ export default Ember.Component.extend({
     return true
   },
 
+  setFound: function () {
+    // add 3 new cards to the game away from the deck
+    if (this.get('gameArray').length < 15) {
+      this.send('addThree')
+    }
+    // clear the selected array
+    this.clearArray(this.get('selectedArray'), 0, 3)
+    this.get('flashMessages').success('Set found! Good work!')
+  },
   clearArray: function (array, start, end) {
     array.removeAt(start, end)
   },
@@ -83,20 +92,21 @@ export default Ember.Component.extend({
 
       let sets = 0
       let self = this
+      let selectedArray = this.get('selectedArray')
       // check if this card has already been selected.
-      if (card === this.get('selectedArray')[0] || card === this.get('selectedArray')[1]) {
+      if (card === selectedArray[0] || card === selectedArray[1]) {
         this.get('flashMessages').danger('Already selected!')
         return
       }
 
       // if less than 3 cards selected, push this card to selected array.
-      if (this.get('selectedArray').length < 3) {
-        this.get('selectedArray').pushObject(card)
+      if (selectedArray.length < 3) {
+        selectedArray.pushObject(card)
 
         // if this card makes 3 selected, validate that set
 
         // if valid:
-        if (this.get('selectedArray').length === 3 &&
+        if (selectedArray.length === 3 &&
           this.validate() === true) {
 
             // record that a set was found on this game
@@ -105,7 +115,7 @@ export default Ember.Component.extend({
             this.send('updateGame')
 
             // remove valid set from game array
-            this.get('gameArray').removeObjects(this.get('selectedArray'))
+            this.get('gameArray').removeObjects(selectedArray)
 
             // check if the game is over
             if (this.get('deck').length === 0) {
@@ -113,18 +123,18 @@ export default Ember.Component.extend({
 
             } else {
             // add 3 new cards to the game away from the deck
-            // clear the selected array
-            // notify the user of valid set found
-              this.send('addThree')
-              this.clearArray(this.get('selectedArray'), 0, 3)
-              this.get('flashMessages').success('Set found! Good work!')
+              this.setFound()
+              // this.send('addThree')
+              // // clear the selected array
+              // this.clearArray(selectedArray, 0, 3)
+              // this.get('flashMessages').success('Set found! Good work!')
             }
 
         // if set is invalid:
-        } else if (this.get('selectedArray').length === 3 &&
+        } else if (selectedArray.length === 3 &&
           this.validate() === false) {
 
-            this.clearArray(this.get('selectedArray'), 0, 3)
+            this.clearArray(selectedArray, 0, 3)
             this.get('flashMessages').danger('Invalid set! Keep looking!')
           }
       }
