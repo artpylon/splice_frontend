@@ -28,7 +28,12 @@ export default Ember.Component.extend({
   }),
 
   cardsRemaining: Ember.computed('game.sets_found', function () {
-    return 66 - (this.get('game').get('sets_found') * 3)
+    let remaining = 66 - (this.get('game').get('sets_found') * 3)
+    if (remaining < 0) {
+      return 0
+    } else {
+      return 66 - (this.get('game').get('sets_found') * 3)
+    }
   }),
 
   // select 15 cards from the deck to start the game
@@ -174,6 +179,10 @@ export default Ember.Component.extend({
     },
 
     deleteGame () {
+      let selectedArray = this.get('selectedArray')
+      if (selectedArray.length >= 1) {
+        this.clearArray(selectedArray, 0, 3)
+      }
       return this.sendAction('deleteGame', this.get('game'));
     },
     updateGame: function () {
