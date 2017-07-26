@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   over: false,
 
   // full deck of game cards, shuffled
+  sets: 0,
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
       for (var i = array.length - 1; i > 0; i--) {
@@ -93,8 +94,6 @@ export default Ember.Component.extend({
 
   actions: {
     toggleSelect (card) {
-
-      let sets = 0
       let self = this
       let selectedArray = this.get('selectedArray')
       // check if this card has already been selected.
@@ -114,9 +113,10 @@ export default Ember.Component.extend({
           this.validate() === true) {
 
             // record that a set was found on this game
-            sets++
-            self.get('game').set('sets_found', sets)
+            this.sets += 1
+            self.get('game').set('sets_found', this.sets)
             this.send('updateGame')
+            debugger
 
             // remove valid set from game array
             this.get('gameArray').removeObjects(selectedArray)
