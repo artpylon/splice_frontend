@@ -16,7 +16,15 @@ export default Ember.Component.extend({
           array[i] = array[j];
           array[j] = temp;
       }
-      return array.slice(0, 12);
+    return array
+    // test deck: 1 valid set and 1 invalid set
+    // const array1 = []
+    // array1.pushObjects(array.slice(0, 3))
+    // array1.pushObject(array[7])
+    // array1.pushObject(array[41])
+    // array1.pushObject(array[67])
+    // debugger
+    // return array1
   }),
 
   cardsRemaining: Ember.computed('game.sets_found', function () {
@@ -84,7 +92,6 @@ export default Ember.Component.extend({
           let _j = board[(j + randoffs) % length]
           let _k = board[(k + randoffs) % length]
           let array = [_i, _j, _k]
-          debugger
           if (_i === null || _j === null || _k === null) {
             return  false
           } else if (this.validate(array)) {
