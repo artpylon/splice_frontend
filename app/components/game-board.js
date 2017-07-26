@@ -16,7 +16,7 @@ export default Ember.Component.extend({
           array[i] = array[j];
           array[j] = temp;
       }
-      return array;
+      return array.slice(0, 12);
   }),
 
   cardsRemaining: Ember.computed('game.sets_found', function () {
@@ -56,11 +56,11 @@ export default Ember.Component.extend({
     }
   },
 
-  validate: function () {
-    const shapes = this.propertyExtractor(this.get('selectedArray'), 'shape');
-    const colors = this.propertyExtractor(this.get('selectedArray'), 'color');
-    const numbers = this.propertyExtractor(this.get('selectedArray'), 'number');
-    const shadings = this.propertyExtractor(this.get('selectedArray'), 'shading');
+  validate: function (array) {
+    const shapes = this.propertyExtractor(array, 'shape');
+    const colors = this.propertyExtractor(array, 'color');
+    const numbers = this.propertyExtractor(array, 'number');
+    const shadings = this.propertyExtractor(array, 'shading');
 
     if (this.propertyEvaluator(shapes) && this.propertyEvaluator(colors)
       && this.propertyEvaluator(numbers) && this.propertyEvaluator(shadings)) {
@@ -71,14 +71,37 @@ export default Ember.Component.extend({
 
     return true
   },
+  checkSetExistence: function() {
+    let board = this.get('gameArray')
+    let length = this.get('gameArray').length
+    if (board.length < 3) {
+      return false}
+    var randoffs = Math.floor(Math.random() * length);
+    for (var i = 0; i < length - 2; i++) {
+      for (var j = i + 1; j < length - 1; j++) {
+        for (var k = j + 1; k < length; k++) {
+          let _i = board[(i + randoffs) % length]
+          let _j = board[(j + randoffs) % length]
+          let _k = board[(k + randoffs) % length]
+          let array = [_i, _j, _k]
+          debugger
+          if (_i === null || _j === null || _k === null) {
+            return  false
+          } else if (this.validate(array)) {
+            return true
+          }
+        }
+      }
+    }
+    return false;
+  },
 
   setFound: function () {
     // add 3 new cards to the game away from the deck
     if (this.get('gameArray').length < 15) {
       this.send('addThree')
     }
-    // clear the selected array
-    this.clearArray(this.get('selectedArray'), 0, 3)
+
     this.get('flashMessages').success('Set found! Good work!')
   },
   clearArray: function (array, start, end) {
@@ -86,7 +109,7 @@ export default Ember.Component.extend({
   },
 
   gameOver: function () {
-    this.clearArray(this.get('selectedArray'), 0, 3)
+    // this.clearArray(this.get('selectedArray'), 0, 3)
     this.get('flashMessages').success('You WON!')
     $('.play-again').toggle()
     $('.reset-game').toggle()
@@ -110,33 +133,32 @@ export default Ember.Component.extend({
 
         // if valid:
         if (selectedArray.length === 3 &&
-          this.validate() === true) {
+          this.validate(this.get('selectedArray')) === true) {
 
             // record that a set was found on this game
             this.sets += 1
             self.get('game').set('sets_found', this.sets)
             this.send('updateGame')
-            debugger
 
             // remove valid set from game array
             this.get('gameArray').removeObjects(selectedArray)
+            this.clearArray(this.get('selectedArray'), 0, 3)
 
             // check if the game is over
-            if (this.get('deck').length === 0) {
-              this.gameOver()
-
+            if (this.checkSetExistence() === false) {
+                this.gameOver()
             } else {
             // add 3 new cards to the game away from the deck
-              this.setFound()
+                this.setFound()
+            }
               // this.send('addThree')
               // // clear the selected array
               // this.clearArray(selectedArray, 0, 3)
               // this.get('flashMessages').success('Set found! Good work!')
-            }
 
         // if set is invalid:
         } else if (selectedArray.length === 3 &&
-          this.validate() === false) {
+          this.validate(selectedArray) === false) {
 
             this.clearArray(selectedArray, 0, 3)
             this.get('flashMessages').danger('Invalid set! Keep looking!')
