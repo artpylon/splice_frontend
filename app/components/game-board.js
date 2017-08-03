@@ -10,29 +10,28 @@ export default Ember.Component.extend({
   sets: 0,
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
-      for (var i = array.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = array[i];
-          array[i] = array[j];
-          array[j] = temp;
-      }
-    return array
+    //   for (var i = array.length - 1; i > 0; i--) {
+    //       var j = Math.floor(Math.random() * (i + 1));
+    //       var temp = array[i];
+    //       array[i] = array[j];
+    //       array[j] = temp;
+    //   }
+    // return array
     // test deck: 1 valid set and 1 invalid set
-    // const array1 = []
-    // array1.pushObjects(array.slice(0, 3))
-    // array1.pushObject(array[7])
-    // array1.pushObject(array[41])
-    // array1.pushObject(array[67])
-    // debugger
-    // return array1
+    const array1 = []
+    array1.pushObjects(array.slice(0, 3))
+    array1.pushObject(array[7])
+    array1.pushObject(array[41])
+    array1.pushObject(array[67])
+    return array1
   }),
 
   cardsRemaining: Ember.computed('game.sets_found', function () {
-    let remaining = 66 - (this.get('game').get('sets_found') * 3)
+    let remaining = 81 - (this.get('game').get('sets_found') * 3)
     if (remaining < 0) {
       return 0
     } else {
-      return 66 - (this.get('game').get('sets_found') * 3)
+      return remaining
     }
   }),
 
@@ -53,6 +52,12 @@ export default Ember.Component.extend({
   selectedCards: Ember.computed('selectedArray', function () {
     return this.get('selectedArray')
   }),
+
+  findSetArray: [],
+  findSetCards: Ember.computed('findSetArray', function () {
+    return this.get('findSetArray')
+  }),
+
 
   // helper function for validate, gets selected card properties
   propertyExtractor: function (array, property) {
@@ -84,7 +89,7 @@ export default Ember.Component.extend({
 
     return true
   },
-  checkSetExistence: function() {
+  checkSet: function() {
     let board = this.get('gameArray')
     let length = this.get('gameArray').length
     if (board.length < 3) {
@@ -100,7 +105,7 @@ export default Ember.Component.extend({
           if (_i === null || _j === null || _k === null) {
             return  false
           } else if (this.validate(array)) {
-            return true
+            return array
           }
         }
       }
@@ -157,7 +162,7 @@ export default Ember.Component.extend({
             this.clearArray(this.get('selectedArray'), 0, 3)
 
             // check if the game is over
-            if (this.checkSetExistence() === false) {
+            if (this.checkSet() === false) {
                 this.gameOver()
             } else {
             // add 3 new cards to the game away from the deck
@@ -195,7 +200,13 @@ export default Ember.Component.extend({
       this.get('gameArray').addObject(this.get('deck').shiftObject())
       this.get('gameArray').addObject(this.get('deck').shiftObject())
       this.get('gameArray').addObject(this.get('deck').shiftObject())
-    }
+      if (this.get('deck') === 0) {
+        $('.add-three').toggle('display')
+      }
+    },
+    findSet: function () {
+      this.findSetArray = this.checkSet()
+    },
   },
 
 });

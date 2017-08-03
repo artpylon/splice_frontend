@@ -13,6 +13,9 @@ export default Ember.Component.extend({
     },
     addThree: function () {
       return this.sendAction('addThree')
-    }
+    },
+    findSet () {
+      return this.sendAction('findSet')
+    },
   }
 });
