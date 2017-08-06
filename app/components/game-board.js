@@ -205,7 +205,10 @@ export default Ember.Component.extend({
       }
     },
     findSet: function () {
-      this.findSetArray = this.checkSet()
+      const cards = this.checkSet()
+      this.findSetArray.pushObject(cards[0])
+      this.findSetArray.pushObject(cards[1])
+      this.findSetArray.pushObject(cards[2])
     },
   },
 
