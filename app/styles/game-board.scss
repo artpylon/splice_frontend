@@ -1,7 +1,7 @@
 // cards
 .card-container {
   float: left;
-  margin: 0 auto 250px;
+  margin: 0 auto 250px 10px;
   position: relative;
   width: 660px;
 }
@@ -18,26 +18,26 @@
 .game-menu {
   float: left;
   margin-bottom: 15px;
+  margin-top: 0px;
   width: 180px;
 }
 
 .menu-button {
-  float: left;
-  margin-left: auto;
-  position: relative;
-
+  background-color: #A09F9E;
+  border-radius: 3px;
+  color: #fff;
   display: inline-block;
-  padding: 4px 8px;
+  float: left;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
   margin-bottom: 5px;
   margin-left: auto;
   margin-top: 10px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #fff;
+  padding: 4px 8px;
+  position: relative;
   text-align: center;
-  background-color: #A09F9E;
-  border-radius: 3px;
-  font-size: 14px;
+  width: 100%;
 }
 
 .play-again {
@@ -55,26 +55,27 @@
 }
 
 .stat {
-  clear: left;
-  float: left;
-  display: inline-block;
-  padding: 4px 8px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  margin-top: 10px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #fff;
-  text-align: center;
   background-color: #EA9810;
   border-radius: 3px;
+  clear: left;
+  color: #fff;
+  display: inline-block;
+  float: left;
   font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-top: 10px;
+  padding: 4px 8px;
   position: relative;
+  text-align: center;
+  width: 100%;
 
 }
 
 // media queries
-@media (max-width: 1080px) {
+@media (max-width: 1104px) {
   .card-container {
     width: 550px;
   }
@@ -86,7 +87,7 @@
 }
 
 
-@media (max-width: 970px) {
+@media (max-width: 994px) {
   .card-container {
     width: 500px;
   }
@@ -109,6 +110,9 @@
   .selected-title {
     font-size: 14px;
   }
+  .find-set {
+    display: none;
+  }
 }
 
 @media (max-width: 400px) {
@@ -129,5 +133,8 @@
   .game-menu {
     width: 120px;
     margin: auto;
+  }
+  .find-set {
+    display: none;
   }
 }

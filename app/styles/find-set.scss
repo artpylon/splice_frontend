@@ -6,7 +6,7 @@
   margin: auto;
   padding: 2px;
   height: 85px;
-  width: 165px;
+  width: 100%;
 
 }
 
@@ -19,26 +19,9 @@
 
 @media (max-width: 500px) {
   .find-set-box {
-    border: 3px;
-    margin: auto;
-    height: 125px;
-    width: 150px;
+    display: none;
   }
   .found-card {
-    height: 76px;
-    width: 52px;
-  }
-}
-
-@media (max-width: 500px) {
-  .find-set-box {
-    border: 3px;
-    margin: auto;
-    height: 125px;
-    width: 150px;
-  }
-  .found-card {
-    height: 76px;
-    width: 52px;
+    display: none;
   }
 }
