@@ -66,8 +66,13 @@ export default Ember.Component.extend({
 
 // Function to check if each card's property are all the same or all different
   propertyEvaluator: function (array) {
+    const allDiff = function () {
+      if (array[0] !== array[1] && array[0] !== array[2] && array[1] !== array[2]) {
+        return true
+      }
+    }
     if (array.every( (val, i, array) => val === array[0]) === true ||
-      array.every( (val, i, array) => i === 0 || val !== array[i - 1]) === true) {
+      allDiff() === true) {
       return true
     } else {
       return false
