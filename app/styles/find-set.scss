@@ -1,0 +1,44 @@
+.find-set-box {
+  border: 2px solid;
+  border-color: black;
+  display: inline-block;
+  float: right;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  width: 180px;
+
+}
+
+.selected-card {
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+@media (max-width: 500px) {
+  .find-set-box {
+    border: 3px;
+    margin: auto;
+    height: 125px;
+    width: 150px;
+  }
+  .selected-card {
+    height: 76px;
+    width: 52px;
+  }
+}
+
+@media (max-width: 500px) {
+  .find-set-box {
+    border: 3px;
+    margin: auto;
+    height: 125px;
+    width: 150px;
+  }
+  .selected-card {
+    height: 76px;
+    width: 52px;
+  }
+}
