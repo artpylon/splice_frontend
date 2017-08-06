@@ -5,8 +5,8 @@ export default Ember.Component.extend({
   user: Ember.computed.alias('auth.credentials.email'),
   isAuthenticated: Ember.computed.alias('auth.isAuthenticated'),
   over: false,
-
   sets: 0,
+
   // full deck of game cards, shuffled
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
@@ -227,9 +227,11 @@ export default Ember.Component.extend({
     },
     findSet: function () {
       const cards = this.checkSet()
-      this.findSetArray.pushObject(cards[0])
-      this.findSetArray.pushObject(cards[1])
-      this.findSetArray.pushObject(cards[2])
+      if (this.findSetArray.length === 0) {
+        this.findSetArray.pushObject(cards[0])
+        this.findSetArray.pushObject(cards[1])
+        this.findSetArray.pushObject(cards[2])
+      }
     },
   },
 
