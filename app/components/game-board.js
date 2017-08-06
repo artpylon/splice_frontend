@@ -6,24 +6,24 @@ export default Ember.Component.extend({
   isAuthenticated: Ember.computed.alias('auth.isAuthenticated'),
   over: false,
 
-  // full deck of game cards, shuffled
   sets: 0,
+  // full deck of game cards, shuffled
   deck: Ember.computed('cards.[]', function () {
     let array = this.get('cards.[]').toArray()
-    //   for (var i = array.length - 1; i > 0; i--) {
-    //       var j = Math.floor(Math.random() * (i + 1));
-    //       var temp = array[i];
-    //       array[i] = array[j];
-    //       array[j] = temp;
-    //   }
-    // return array
+      for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    return array
     // test deck: 1 valid set and 1 invalid set
-    const array1 = []
-    array1.pushObjects(array.slice(0, 3))
-    array1.pushObject(array[7])
-    array1.pushObject(array[41])
-    array1.pushObject(array[67])
-    return array1
+    // const array1 = []
+    // array1.pushObjects(array.slice(0, 3))
+    // array1.pushObject(array[7])
+    // array1.pushObject(array[41])
+    // array1.pushObject(array[67])
+    // return array1
   }),
 
   cardsRemaining: Ember.computed('game.sets_found', function () {
@@ -61,13 +61,13 @@ export default Ember.Component.extend({
 
   // helper function for validate, gets selected card properties
   propertyExtractor: function (array, property) {
-    return array.map(function(card) {return card.get(property);});
+    return array.map(function(card) {return card.get(property)});
   },
 
 // Function to check if each card's property are all the same or all different
   propertyEvaluator: function (array) {
-    if (array.every( (val, i, arr) => val == arr[0]) === true ||
-      array.every( (val, i, arr) => i === 0 || val !== arr[i - 1]) === true) {
+    if (array.every( (val, i, array) => val === array[0]) === true ||
+      array.every( (val, i, array) => i === 0 || val !== array[i - 1]) === true) {
       return true
     } else {
       return false
@@ -82,12 +82,11 @@ export default Ember.Component.extend({
 
     if (this.propertyEvaluator(shapes) && this.propertyEvaluator(colors)
       && this.propertyEvaluator(numbers) && this.propertyEvaluator(shadings)) {
-
+        return true
     } else {
       return false
     }
 
-    return true
   },
   checkSet: function() {
     let board = this.get('gameArray')
