@@ -126,10 +126,18 @@ export default Ember.Component.extend({
   },
 
   gameOver: function () {
-    // this.clearArray(this.get('selectedArray'), 0, 3)
-    this.get('flashMessages').success('You WON!')
+    let selectedArray = this.get('selectedArray')
+    let findSetArray = this.get('findSetArray')
+
+    if (selectedArray.length > 0) {
+      this.clearArray(selectedArray, 0, 3) }
+
+    if (findSetArray.length > 0) {
+      this.clearArray(findSetArray, 0, 3) }
+
     $('.play-again').toggle()
     $('.reset-game').toggle()
+    this.get('flashMessages').success('You WON!')
   },
 
   actions: {
@@ -160,6 +168,9 @@ export default Ember.Component.extend({
             // remove valid set from game array
             this.get('gameArray').removeObjects(selectedArray)
             this.clearArray(this.get('selectedArray'), 0, 3)
+            if (this.get('findSetCards').length > 0) {
+              this.clearArray(this.get('findSetCards'), 0, 3)
+            }
 
             // check if the game is over
             if (this.checkSet() === false) {
@@ -185,15 +196,21 @@ export default Ember.Component.extend({
 
     deleteGame () {
       let selectedArray = this.get('selectedArray')
+      let findSetArray = this.get('findSetArray')
+
       if (selectedArray.length >= 1) {
-        this.clearArray(selectedArray, 0, 3)
-      }
+        this.clearArray(selectedArray, 0, 3) }
+
+      if (findSetArray.length >= 1) {
+        this.clearArray(findSetArray, 0, 3) }
+
       return this.sendAction('deleteGame', this.get('game'));
     },
     updateGame: function () {
       return this.sendAction('updateGame', this.get('game'))
     },
     playAgain: function () {
+
       this.transitionTo('games')
     },
     addThree: function () {
