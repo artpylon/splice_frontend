@@ -177,7 +177,7 @@ export default Ember.Component.extend({
             }
 
             // check if the game is over
-            if (this.checkSet() === false) {
+            if (this.checkSet() === false && this.get('deck').length < 3) {
                 this.gameOver()
             } else {
             // add 3 new cards to the game away from the deck
@@ -226,6 +226,9 @@ export default Ember.Component.extend({
       }
     },
     findSet: function () {
+      while (this.checkSet() === false && this.get('deck').length > 2) {
+        this.send('addThree')
+      }
       const cards = this.checkSet()
       if (this.findSetArray.length === 0) {
         this.findSetArray.pushObject(cards[0])

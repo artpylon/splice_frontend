@@ -84,3 +84,16 @@ body {
  color: #7607D8;
  margin: 0px;
 }
+
+@media (max-width: 894px) {
+  .navbar-right {
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  #splice-title {
+    font-size: 38px;
+  }
+}
