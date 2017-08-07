@@ -17,6 +17,7 @@
 // game menu
 .game-menu {
   float: left;
+  font-family: 'Bungee', cursive;
   margin-bottom: 15px;
   margin-top: 0px;
   width: 180px;
@@ -55,10 +56,12 @@
 }
 
 .stat {
-  background-color: #EA9810;
+  // background-color: #EAA914;
+  border: 2px solid;
+  border-color: black;
   border-radius: 3px;
   clear: left;
-  color: #fff;
+  color: black;
   display: inline-block;
   float: left;
   font-size: 14px;
@@ -73,6 +76,12 @@
   width: 100%;
 
 }
+
+// .selected-title {
+//   margin-top: 0px;
+//   padding-top: 0px;
+//   position: relative;
+// }
 
 // media queries
 @media (max-width: 1104px) {
