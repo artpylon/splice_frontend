@@ -1,12 +1,14 @@
 .selected-box {
-  border: 5px solid;
+  border: 2px solid;
   border-color: black;
+  border-radius: 15px;
   display: inline-block;
   float: right;
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
-  height: 150px;
+  margin-top: 3px;
+  height: 160px;
   width: 180px;
 
 }
@@ -15,4 +17,30 @@
   margin-left: auto;
   margin-right: auto;
 
+}
+
+@media (max-width: 500px) {
+  .selected-box {
+    border: 3px;
+    margin: auto;
+    height: 125px;
+    width: 150px;
+  }
+  .selected-card {
+    height: 76px;
+    width: 52px;
+  }
+}
+
+@media (max-width: 500px) {
+  .selected-box {
+    border: 3px;
+    margin: auto;
+    height: 125px;
+    width: 150px;
+  }
+  .selected-card {
+    height: 76px;
+    width: 52px;
+  }
 }

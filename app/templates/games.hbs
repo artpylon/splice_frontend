@@ -1,16 +1,18 @@
 
-<p>(Must be signed in to play a game)</p>
 
-
-<div class='btn-group game-menu'>
-
-    <button class='btn play-game' {{action 'createGame'}}>Play Game</button>
-
-</div>
-
+<div class='intro-text'>
 <h4>How to play:</h4>
 <p>Each card has four properties: shape, color, shading, and number.</p>
 <p>Select three cards where, across those 3 cards, each of the individual properties
   is either all the same, or all different.</p>
+
+<h5>(Must be signed in to play a game)</h5>
+</div>
+
+<div class='btn-group ready'>
+
+    <button class='btn play-game' {{action 'createGame'}}>Play Game</button>
+
+</div>
 
 {{outlet}}

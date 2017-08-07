@@ -1,33 +1,148 @@
+// cards
+.card-container {
+  float: left;
+  margin: 0 auto 250px 10px;
+  position: relative;
+  width: 660px;
+}
+
 .card {
+  display: inline-block;
   float: left;
   margin-bottom: 18px;
+  position: relative;
 
 }
 
-.reset-game {
+// game menu
+.game-menu {
   float: left;
-
+  font-family: 'Bungee', cursive;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  width: 180px;
 }
 
-.card-container {
-  margin: 0 auto 250px;
-  max-width: 660px;
-  width: auto;
-}
-
-hr {
-  color: black;
+.menu-button {
+  background-color: #A09F9E;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-top: 10px;
+  padding: 4px 8px;
+  position: relative;
+  text-align: center;
+  width: 100%;
 }
 
 .play-again {
   display: none;
-  margin-left: 10px;
 }
 
 .add-three {
-  margin-left: 10px;
+  clear: left;
+  margin-top: 10px;
 }
 
-.game-menu {
-  margin-bottom: 10px;
+.find-set {
+  clear: left;
+  margin-top: 10px;
+}
+
+.stat {
+  // background-color: #EAA914;
+  border: 2px solid;
+  border-color: black;
+  border-radius: 3px;
+  clear: left;
+  color: black;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-top: 10px;
+  padding: 4px 8px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+
+}
+
+// .selected-title {
+//   margin-top: 0px;
+//   padding-top: 0px;
+//   position: relative;
+// }
+
+// media queries
+@media (max-width: 1104px) {
+  .card-container {
+    width: 550px;
+  }
+
+  .card {
+    height: 153px;
+    width: 104px;
+  }
+}
+
+@media (max-width: 994px) {
+  .card-container {
+    width: 500px;
+  }
+
+  .card {
+    height: 133px;
+    width: 91px;
+  }
+}
+
+@media (max-width: 500px) {
+  .card-container {
+    width: 325px;
+  }
+
+  .card {
+    height: 95px;
+    width: 65px;
+  }
+  .selected-title {
+    font-size: 14px;
+  }
+  .find-set {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-container {
+    width: 290px;
+  }
+
+  .card {
+    height: 76px;
+    width: 52px;
+  }
+  .selected-title {
+    font-size: 14px;
+  }
+  .stat {
+    display: none;
+  }
+  .game-menu {
+    width: 120px;
+    margin: auto;
+  }
+  .find-set {
+    display: none;
+  }
 }

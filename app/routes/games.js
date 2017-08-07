@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   actions: {
     createGame(){
       let self = this;
-      let currentGame = this.get('store').createRecord('game', {
+      let currentGame = this.get('store').createRecord('game', {sets_found: 0,
         over: false
       });
       currentGame.save()

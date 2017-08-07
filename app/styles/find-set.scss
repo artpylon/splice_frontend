@@ -1,0 +1,27 @@
+.find-set-box {
+  // border: 2px solid;
+  // border-color: black;
+  display: inline-block;
+  float: left;
+  margin: auto;
+  padding: 2px;
+  height: 85px;
+  width: 100%;
+
+}
+
+.found-card {
+  float: left;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+@media (max-width: 764px) {
+  .find-set-box {
+    display: none;
+  }
+  .found-card {
+    display: none;
+  }
+}

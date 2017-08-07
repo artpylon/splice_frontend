@@ -1,0 +1,19 @@
+<div class='game-menu nav-stacked'>
+  <div class='stat'>Sets Found: {{game.sets_found}}</div>
+  <div class='stat'>Cards Remaining: {{cardsRemaining}}/81</div>
+
+  {{#link-to 'games' type='button' tagName='button' class='play-again menu-button'}}Play Again{{/link-to}}
+
+  <button type='button' class='menu-button reset-game' {{action 'deleteGame'}}>Restart Game</button>
+
+  {{#if deck}}
+  <button type='button' class='menu-button add-three' {{action 'addThree'}}>Add 3 Cards</button>
+  {{/if}}
+
+  <button type='button' class='menu-button find-set' {{action 'findSet'}}>Find Set</button>
+
+  <div class='find-set-box'>
+    {{game-board/stats/find-set findSetCards=findSetCards}}
+  </div>
+
+</div>
